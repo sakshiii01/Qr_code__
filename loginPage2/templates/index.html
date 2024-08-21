@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate QR codes for any URL with this simple tool.">
     <title>QR Code Generator</title>
     <style>
         body {
@@ -106,12 +107,48 @@
         .section.active {
             display: block;
         }
+        .footer {
+            border: 0;
+            width: 100%;
+            background-color: #2c3e50;
+            margin-bottom: 0;
+        }
+        .footer-content {
+            border: 0;
+            cellpadding: 15;
+            cellspacing: 0;
+            width: 90%;
+            margin: 0 auto;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 0;
+            color: #fff;
+        }
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .footer-text {
+            color: white;
+            font-family: Verdana, sans-serif;
+            font-size: 1.25rem; /* Equivalent to size="5" */
+        }
+        .footer-author {
+            text-align: right;
+            color: black;
+            font-family: Arial, sans-serif;
+            font-size: 1.25rem; /* Equivalent to size="5" */
+        }
     </style>
 </head>
 <body>
     <nav>
         <div class="logo">
-            <img src="C:/Users/saksh/OneDrive/Desktop/loginPage2/templates/Poornima_College_logo.png" alt="Logo">
+            <img src="C:/Users/saksh/OneDrive/Desktop/loginPage2/templates/Poornima_College_logo.png" alt="Poornima College Logo">
             <span>Poornima QR Generator</span>
         </div>
         <ul>
@@ -141,9 +178,9 @@
         <div id="contact" class="section">
             <h2>Contact Us</h2>
             <p>Have questions or feedback? We'd love to hear from you!</p>
-            <p>Email: 2023pceadsakshisingh047@poornima.org</p>
+            <p>Email: <a href="mailto:2023pceadsakshisingh047@poornima.org">2023pceadsakshisingh047@poornima.org</a></p>
             <p>Phone: +(91) 6350120157</p>
-            <p>Address: PNo.8, Fateh Nagar, shanti Nagar, Jaipur, Rajasthan 302006</p>
+            <p>Address: PNo.8, Fateh Nagar, Shanti Nagar, Jaipur, Rajasthan 302006</p>
         </div>
     </div>
 
@@ -155,18 +192,18 @@
             document.getElementById(sectionId).classList.add('active');
         }
 
-        document.getElementById('qrForm').addEventListener('submit', function(e) {
+        document.getElementById('qrForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             var url = document.getElementById('url').value;
-            fetch('/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'url=' + encodeURIComponent(url)
-            })
-            .then(response => response.blob())
-            .then(blob => {
+            try {
+                let response = await fetch('/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'url=' + encodeURIComponent(url)
+                });
+                let blob = await response.blob();
                 var img = document.createElement('img');
                 img.id = 'qrcode';
                 img.src = URL.createObjectURL(blob);
@@ -174,10 +211,9 @@
                 result.innerHTML = '';
                 result.appendChild(img);
                 document.getElementById('downloadBtn').style.display = 'block';
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error:', error);
-            });
+            }
         });
 
         document.getElementById('downloadBtn').addEventListener('click', function() {
@@ -192,70 +228,44 @@
             }
         });
     </script>
-    <table id="footer" border="0" width="100%"style = "margin-bottom: 0px;" 
-        cellpadding="0" cellspacing="0" bgcolor="#2c3e50">
-        <tr>
-            <td>
-                <table border="0" cellpadding="15" 
-                    cellspacing="0" width="90%" align="center">
-                    <tr>
-                        <td width="13%" valign="top">
-                            <a href="https://www.linkedin.com/in/sakshi-singh-064666278" style="text-decoration:none; color: #fff;">
-                                <b>LinkedIn</b>   ➲
-                            </a>
-                        </td>
-                        <td style="color: #fff;">
-                            |
-                        </td>
-                        <td width="13%" valign="top">
-                            <a href="https://www.instagram.com/say_sakshisingh?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" style="text-decoration:none; color: #fff;">
-                                <b>Instagram</b>  ➲
-                            </a>
-                        </td>
-                        <td style="color: #fff;">
-                            |
-                        </td>
-                        <td width="13%" valign="top">
-                            <a href="https://www.poornima.org/" style="text-decoration:none; color: #fff;">
-                                <b>Website</b>  ➲
-                            </a>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-    <!--Footer1(end)-->
 
-    <!--Footer2(start)-->
-    <table id="footer" border="0" width="100%" 
-        cellpadding="0" cellspacing="0" bgcolor="#2c3e50">
+    <!-- Footer 1 -->
+    <table class="footer">
         <tr>
             <td>
-                <table border="0" cellpadding="15" 
-                    cellspacing="0" width="90%" align="center">
-                    <tr>
-                        <td width="80%" valign="top">
-                            <font face="Verdana" 
-                                color="white" size="5">
-                                ©Copyright 2050 by nobody. 
-                                All rights reserved.
-                            </font>
+                <table class="footer-content">
+                    <tr class="footer-links">
+                        <td>
+                            <a href="https://www.linkedin.com/in/sakshi-singh-064666278">
+                                <b>LinkedIn</b> ➲
+                            </a>
                         </td>
-                        <td width="10%">
-                            <font face="arial" color="black" size="5">
-                                <a href="#header" style="text-decoration:none">
-                                    <font face="Verdana" color="white" size="6">
-                                        <b></b>
-                                    </font>
-                                </a>
-                            </font>
+                        <td>|</td>
+                        <td>
+                            <a href="https://www.instagram.com/say_sakshisingh?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+                                <b>Instagram</b> ➲
+                            </a>
+                        </td>
+                        <td>|</td>
+                        <td>
+                            <a href="https://www.poornima.org/">
+                                <b>Website</b> ➲
+                            </a>
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
     </table>
-    <!--Footer2(end)-->
-</body>
-</html>
+    <!-- Footer 2 -->
+    <table class="footer">
+        <tr>
+            <td>
+                <table class="footer-content">
+                    <tr>
+                        <td class="footer-text" width="80%">
+                            ©Copyright 2050 by nobody. All rights reserved.
+                        </td>
+                        <td class="footer-author" width="10%">
+                            <a href="#header" style="text-decoration:none; color: white;">
+                                <b>Sakshi Singh</b
